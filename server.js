@@ -4,6 +4,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const userRoutes = require('./userRoutes'); // Import the router
 
+// Serve static files from the Angular app
+app.use(express.static(path.join(__dirname, 'dist/beento')));
+
+// For all other routes, serve the Angular app
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'dist/beento/index.html'));
+});
+
 const app = express();
 
 app.use(bodyParser.json());

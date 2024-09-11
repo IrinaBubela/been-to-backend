@@ -13,8 +13,8 @@ const authMiddleware = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret');  // Replace with your secret key
-    console.log('Decoded token:', decoded);  // Debugging line
+    const decoded = jwt.verify(token, 'your_jwt_secret');  
+    console.log('Decoded token:', decoded); 
 
     const user = await User.findOne({ _id: decoded.userId });
     if (!user) {
@@ -24,7 +24,7 @@ const authMiddleware = async (req, res, next) => {
     req.user = user;
     next();
   } catch (e) {
-    console.error('Error verifying token:', e);  // Debugging line
+    console.error('Error verifying token:', e); 
     res.status(401).send({ error: 'Please authenticate.' });
   }
 };
