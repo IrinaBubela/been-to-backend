@@ -2,15 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+const User = require('./models/User');
 const userRoutes = require('./userRoutes'); // Import the router
-
-// Serve static files from the Angular app
-app.use(express.static(path.join(__dirname, 'dist/beento')));
-
-// For all other routes, serve the Angular app
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'dist/beento/index.html'));
-});
 
 const app = express();
 
@@ -26,8 +20,11 @@ app.use('/api/user', userRoutes);
 // User signup route
 app.post('/api/auth/signup', async (req, res) => {
   const { email, password } = req.body;
+  
   try {
     const user = new User({ email, password });
+    console.log('user', user);
+    
     await user.save();
     res.status(201).send('User created');
   } catch (error) {
