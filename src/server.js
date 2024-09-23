@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+
+const bcrypt = require('bcryptjs');
 
 const User = require('./models/User');
 const userRoutes = require('./userRoutes'); // Import the router
